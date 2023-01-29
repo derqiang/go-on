@@ -79,7 +79,9 @@ type Circle struct {
 }
 type Wheel struct {
 	Circle
+	StructRunner
 	Spokes int
+	X      int
 }
 
 func anonymousMembers() {
@@ -93,6 +95,7 @@ func anonymousMembers() {
 	wa.Y = 8
 	wa.Radius = 5
 	wa.Spokes = 20
+	fmt.Printf("%#v\n", w)
 
 	w = Wheel{
 		Circle: Circle{
@@ -103,4 +106,5 @@ func anonymousMembers() {
 	}
 
 	fmt.Printf("%#v\n", w)
+
 }
