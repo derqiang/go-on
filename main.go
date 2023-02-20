@@ -1,12 +1,10 @@
 package main
 
-import (
-	"fmt"
-	tempconv2 "go_try/ch2/cf/tempconv"
-)
+import "go_try/ch1"
 
 func main() {
 
+	ch1.Fetch()
 	// Chapter 1 , P3
 	//ch1.BenchTest()
 
@@ -32,10 +30,10 @@ func main() {
 	//ch1.Server1()
 
 	/* Chapter 2 */
-	const freezingF, boilingF = 32.0, 212.0
-	fmt.Printf("%g °F = %g °C \n", freezingF, tempconv2.FToC(freezingF))
-	fmt.Printf("%g °F = %g °C \n", boilingF, tempconv2.FToC(boilingF))
-	fmt.Printf("Brrr! %v\n", tempconv2.AbsoluteZeroC)
-	tempconv2.Run()
+	//const freezingF, boilingF = 32.0, 212.0
+	//fmt.Printf("%g °F = %g °C \n", freezingF, tempconv2.FToC(freezingF))
+	//fmt.Printf("%g °F = %g °C \n", boilingF, tempconv2.FToC(boilingF))
+	//fmt.Printf("Brrr! %v\n", tempconv2.AbsoluteZeroC)
+	//tempconv2.Run()
 	//
 }

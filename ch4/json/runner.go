@@ -35,7 +35,6 @@ func (jr JsonRunner) Run() {
 	for _, item := range result.Items {
 		fmt.Printf("#%-50d %9.9s %.55s\n", item.Number, item.User.Login, item.Title)
 	}
-
 }
 
 type Movie struct {
