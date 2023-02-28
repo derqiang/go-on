@@ -1,10 +1,10 @@
 package main
 
-import "go_try/ch1"
+import "go_try/ch8"
 
 func main() {
 
-	ch1.Fetch()
+	//ch1.Fetch()
 	// Chapter 1 , P3
 	//ch1.BenchTest()
 
@@ -36,4 +36,8 @@ func main() {
 	//fmt.Printf("Brrr! %v\n", tempconv2.AbsoluteZeroC)
 	//tempconv2.Run()
 	//
+	for _, r := range ch8.Runners {
+		r.Run()
+	}
+
 }

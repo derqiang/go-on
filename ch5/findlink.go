@@ -8,10 +8,6 @@ import (
 	"os"
 )
 
-type Runner interface {
-	Run()
-}
-
 type FindLinkRunner int64
 type FindLinkRunner2 int64
 type FindLinkRunner3 int64
