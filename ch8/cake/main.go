@@ -3,10 +3,37 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 func main() {
 
+	ch1 := make(chan int)
+	go func() {
+		fmt.Printf("\tbackend start...\n")
+		//time.Sleep(5 * time.Second)
+		for in := range ch1 {
+			fmt.Printf("\tbackend goroutine : %v\n", in)
+		}
+		//fmt.Printf("\tbackend goroutine : %v\n", <-ch1)
+		//fmt.Printf("\t[backend end]! - %v\n", <-ch1)
+		fmt.Printf("\tbackend end!\n")
+	}()
+
+	//ch1 <- 1
+	//fmt.Printf("main get 1...%v\n", <-ch1)
+	//ch1 <- 2
+	//fmt.Printf("main get 2...%v\n", <-ch1)
+	//ch1 <- 3
+	//fmt.Printf("main get 3...%v\n", <-ch1)
+	//ch1 <- 4
+	//fmt.Printf("main get 4...%v\n", <-ch1)
+	fmt.Printf("main end!\n")
+	//cakeRoom()
+	time.Sleep(1000 * time.Second)
+}
+
+func cakeRoom() {
 	var wg sync.WaitGroup
 
 	belt := []chan cakeUnit{
@@ -32,12 +59,6 @@ func main() {
 			fmt.Printf("clean : len(w.out) = %v\n", len(w.out))
 		}
 	}
-
-	//time.Sleep(1000 * time.Second)
-}
-
-func cakeRoom() {
-
 }
 
 const (

@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
+	"sync"
 	"time"
 )
 
@@ -22,16 +24,16 @@ func main() {
 	//	log.Fatal(err)
 	//}
 
-	var filenames []string
-	for i := 0; i < 7; i++ {
-		filenames = append(filenames, fmt.Sprintf("./ch8/thumbnail/assets/%d.jpg", i))
-	}
-	r, err := makeThumbnail5(filenames)
-	if err != nil {
-		log.Fatal(r)
-		return
-	}
-	log.Print(r)
+	filenames := make(chan string, 10)
+	go func() {
+		for i := 0; i < 7; i++ {
+			path := fmt.Sprintf("./ch8/thumbnail/assets/%d.jpg", i)
+			filenames <- path
+		}
+		close(filenames)
+	}()
+	log.Println(makeThumbnail6(filenames))
+	log.Println(">>>> END >>>>")
 }
 
 /// 等待和协调子任务执行结果
@@ -101,8 +103,40 @@ func makeThumbnail5(filenames []string) (thumbs []string, err error) {
 	return thumbs, nil
 }
 
-func makeThumbnail6(filenames []string) {
+func makeThumbnail6(filenames <-chan string) int64 {
 
+	var wg sync.WaitGroup
+	sizes := make(chan int64)
+	for f := range filenames {
+		wg.Add(1)
+		go func(f string) {
+			defer func() {
+				wg.Done()
+			}()
+			out, err := ImageFile(f)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			st, _ := os.Stat(out)
+			sizes <- st.Size()
+		}(f)
+		println("1 ---- IN ----")
+	}
+
+	go func() {
+		wg.Wait()
+		close(sizes)
+		println("Close sizes channel.")
+	}()
+
+	var total int64
+	for s := range sizes {
+		fmt.Printf("....>>> main goroutine runnming : %v\n", s)
+		total += s
+	}
+
+	return total
 }
 
 func traceRun(msg string) func() {
