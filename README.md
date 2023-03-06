@@ -73,6 +73,8 @@ json开头键名对应的值用于控制encoding/json包的编码和解码的行
 47. channel buffer既不为满也不为空时，select语句的执行情况就像是抛硬币的行为一样是随机的 (P-325)
 48. channel的零值是nil。也许会让你觉得比较奇怪，nil的channel有时候也是有一些用处的。因为对一个nil的channel发送和接收操作会永远阻塞，在select语句中操作nil的channel永远都不会被select到。(P326)
 49. 当执行panic异常时，会将所有在执行状态的goroutine进行输出，这个技巧可以用于检测一些程序执行后就退出的情况下，验证goroutine执行情况时使用（`P334`）
+50. 在分析数据竞争的可能情况时，一定要注意每一个步骤的操作，是否还有隐藏在更底层的非原子性步骤
+51. Go语言的调度器会自己决定是否需要将某个goroutine从一个操作系统线程转 移到另一个操作系统线程
 
 
 ## Sense
@@ -90,3 +92,4 @@ json开头键名对应的值用于控制encoding/json包的编码和解码的行
 
 ## Framework & Lib
 1. 依赖注入的理念，翻译俗话叫做"衣来张手，饭来张口，想要就有"
+2. 为了执行tools  安装依赖 `go get github.com/dlclark/regexp2/...`
